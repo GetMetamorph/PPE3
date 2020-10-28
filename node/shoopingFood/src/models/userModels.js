@@ -2,13 +2,13 @@ const sql = require("./db");
 
 // constructor
 const User = function(user) {
-    this.email = user.email;
-    this.username = user.username;
-    this.password = user.password;
+    this.email = user.USR_Mail;
+    this.username = user.USR_Firstname;
+    this.password = user.USR_Password;
 };
 
 User.create = (newUser, result) => {
-    sql.query("INSERT INTO user SET ?", newUser, (err, res) => {
+    sql.query("INSERT INTO T_User_USR SET ?", newUser, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -20,8 +20,8 @@ User.create = (newUser, result) => {
     });
 };
 
-User.findById = (userid, result) => {
-    sql.query(`SELECT * FROM user WHERE userid = ${userid}`, (err, res) => {
+User.findById = (id, result) => {
+    sql.query(`SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR WHERE USR_Id = ${id}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -40,7 +40,7 @@ User.findById = (userid, result) => {
 };
 
 User.getAll = result => {
-    sql.query("SELECT * FROM user", (err, res) => {
+    sql.query("SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR FROM T_User_USR", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -54,7 +54,7 @@ User.getAll = result => {
 
 User.updateById = (id, user, result) => {
     sql.query(
-        "UPDATE user SET email = ?, username = ?, password = ? WHERE userid = ?", [user.email, user.username, user.password, id],
+        "UPDATE T_User_USR SET USR_Mail = ?, USR_Firstname = ?, USR_Password = ? WHERE USR_Id = ?", [user.email, user.username, user.password, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -75,7 +75,7 @@ User.updateById = (id, user, result) => {
 };
 
 User.remove = (id, result) => {
-    sql.query("DELETE FROM user WHERE userid = ?", id, (err, res) => {
+    sql.query("DELETE FROM user WHERE USR_Id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
