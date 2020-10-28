@@ -1,0 +1,42 @@
+module.exports = app => {
+    const user = require("../controllers/userControllers"),
+        room = require("../controllers/roomControllers"),
+        product = require("../controllers/productControllers"),
+        house = require("../controllers/houseControllers");
+
+    // Create
+    app.post("/house", house.create);
+    app.post("/room", room.create);
+    app.post("/product", product.create);
+    app.post("/user", user.create);
+
+    // Retrieve all
+    app.get("/house", house.findAll);
+    app.get("/room", room.findAll);
+    app.get("/product", product.findAll);
+    app.get("/user", user.findAll);
+
+    // Retrieve by id
+    app.get("/house/:idhouse", house.findOne);
+    app.get("/room/:idRoom", room.findOne);
+    app.get("/product/:idProducts", product.findOne);
+    app.get("/user/:userid", user.findOne);
+
+    // Update
+    app.put("/house/:idhouse", house.update);
+    app.put("/room/:idRoom", room.update);
+    app.put("/product/:idProducts", product.update);
+    app.put("/user/:userid", user.update);
+
+    // Delete
+    app.delete("/house/:idhouse", house.delete);
+    app.delete("/room/:idRoom", room.delete);
+    app.delete("/product/:idProducts", product.delete);
+    app.delete("/user/:userid", user.delete);
+
+    // Delete all
+    app.delete("/house", house.deleteAll);
+    app.delete("/room", room.deleteAll);
+    app.delete("/product", product.deleteAll);
+    app.delete("/user", user.deleteAll);
+};
