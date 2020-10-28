@@ -4,8 +4,8 @@ const sql = require("./db");
 const Product = function(product) {
     this.name = product.name;
     this.price = product.price;
-    this.Description = product.Description;
-    this.Amazonlink = product.Amazonlink;
+    this.description = product.description;
+    this.amazonlink = product.amazonlink;
 };
 
 Product.create = (newProduct, result) => {
@@ -21,8 +21,8 @@ Product.create = (newProduct, result) => {
     });
 };
 
-Product.findById = (idProducts, result) => {
-    sql.query(`SELECT * FROM product WHERE idProducts = ${idProducts}`, (err, res) => {
+Product.findById = (productid, result) => {
+    sql.query(`SELECT * FROM product WHERE productid = ${productid}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -55,7 +55,7 @@ Product.getAll = result => {
 
 Product.updateById = (id, product, result) => {
     sql.query(
-        "UPDATE product SET name = ?, price = ?, Description = ?, Amazonlink = ? WHERE idProducts = ?", [product.name, product.adresse, id],
+        "UPDATE product SET name = ?, price = ?, description = ?, amazonlink = ? WHERE productid = ?", [product.name, product.price, product.description, product.amazonlink, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -76,7 +76,7 @@ Product.updateById = (id, product, result) => {
 };
 
 Product.remove = (id, result) => {
-    sql.query("DELETE FROM product WHERE idProducts = ?", id, (err, res) => {
+    sql.query("DELETE FROM product WHERE productid = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

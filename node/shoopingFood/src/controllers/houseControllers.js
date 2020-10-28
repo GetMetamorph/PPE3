@@ -36,24 +36,24 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single House with a idhouse
+// Find a single House with a houseid
 exports.findOne = (req, res) => {
-    House.findById(req.params.idhouse, (err, data) => {
+    House.findById(req.params.houseid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found House with id ${req.params.idhouse}.`
+                    message: `Not found House with id ${req.params.houseid}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving House with id " + req.params.idhouse
+                    message: "Error retrieving House with id " + req.params.houseid
                 });
             }
         } else res.send(data);
     });
 };
 
-// Update a House identified by the idhouse in the request
+// Update a House identified by the houseid in the request
 exports.update = (req, res) => {
     // Validate Request
     if (!req.body) {
@@ -63,17 +63,17 @@ exports.update = (req, res) => {
     }
 
     House.updateById(
-        req.params.idhouse,
+        req.params.houseid,
         new House(req.body),
         (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
                     res.status(404).send({
-                        message: `Not found House with id ${req.params.idhouse}.`
+                        message: `Not found House with id ${req.params.houseid}.`
                     });
                 } else {
                     res.status(500).send({
-                        message: "Error updating House with id " + req.params.idhouse
+                        message: "Error updating House with id " + req.params.houseid
                     });
                 }
             } else res.send(data);
@@ -81,17 +81,17 @@ exports.update = (req, res) => {
     );
 };
 
-// Delete a House with the specified idhouse in the request
+// Delete a House with the specified houseid in the request
 exports.delete = (req, res) => {
-    House.remove(req.params.idhouse, (err, data) => {
+    House.remove(req.params.houseid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found House with id ${req.params.idhouse}.`
+                    message: `Not found House with id ${req.params.houseid}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete House with id " + req.params.idhouse
+                    message: "Could not delete House with id " + req.params.houseid
                 });
             }
         } else res.send({ message: `House was deleted successfully!` });

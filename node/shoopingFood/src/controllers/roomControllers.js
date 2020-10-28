@@ -11,8 +11,9 @@ exports.create = (req, res) => {
 
     // Create a Room
     const room = new Room({
-        Name: req.body.Name,
-        house_idhouse: req.body.house_idhouse
+        name: req.body.name,
+        houseid: req.body.houseid,
+        category: req.body.category
     });
 
     // Save Room in the database
@@ -36,24 +37,24 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Room with a idRoom
+// Find a single Room with a roomid
 exports.findOne = (req, res) => {
-    Room.findById(req.params.idRoom, (err, data) => {
+    Room.findById(req.params.roomid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found Room with id ${req.params.idRoom}.`
+                    message: `Not found Room with id ${req.params.roomid}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving Room with id " + req.params.idRoom
+                    message: "Error retrieving Room with id " + req.params.roomid
                 });
             }
         } else res.send(data);
     });
 };
 
-// Update a Room identified by the idRoom in the request
+// Update a Room identified by the roomid in the request
 exports.update = (req, res) => {
     // Validate Request
     if (!req.body) {
@@ -63,17 +64,17 @@ exports.update = (req, res) => {
     }
 
     Room.updateById(
-        req.params.idRoom,
+        req.params.roomid,
         new Room(req.body),
         (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
                     res.status(404).send({
-                        message: `Not found Room with id ${req.params.idRoom}.`
+                        message: `Not found Room with id ${req.params.roomid}.`
                     });
                 } else {
                     res.status(500).send({
-                        message: "Error updating Room with id " + req.params.idRoom
+                        message: "Error updating Room with id " + req.params.roomid
                     });
                 }
             } else res.send(data);
@@ -81,17 +82,17 @@ exports.update = (req, res) => {
     );
 };
 
-// Delete a Room with the specified idRoom in the request
+// Delete a Room with the specified roomid in the request
 exports.delete = (req, res) => {
-    Room.remove(req.params.idRoom, (err, data) => {
+    Room.remove(req.params.roomid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found Room with id ${req.params.idRoom}.`
+                    message: `Not found Room with id ${req.params.roomid}.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Could not delete Room with id " + req.params.idRoom
+                    message: "Could not delete Room with id " + req.params.roomid
                 });
             }
         } else res.send({ message: `Room was deleted successfully!` });

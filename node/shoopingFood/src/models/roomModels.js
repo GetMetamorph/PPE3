@@ -2,8 +2,9 @@ const sql = require("./db");
 
 // constructor
 const Room = function(room) {
-    this.Name = room.Name;
-    this.house_idhouse = room.house_idhouse;
+    this.name = room.name;
+    this.houseid = room.houseid;
+    this.category = room.category;
 
 };
 
@@ -20,8 +21,8 @@ Room.create = (newRoom, result) => {
     });
 };
 
-Room.findById = (idRoom, result) => {
-    sql.query(`SELECT * FROM room WHERE idRoom = ${idRoom}`, (err, res) => {
+Room.findById = (roomid, result) => {
+    sql.query(`SELECT * FROM room WHERE roomid = ${roomid}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -54,7 +55,7 @@ Room.getAll = result => {
 
 Room.updateById = (id, room, result) => {
     sql.query(
-        "UPDATE room SET Name = ?, house_idhouse = ? WHERE idRoom = ?", [room.Name, room.house_idhouse, id],
+        "UPDATE room SET name = ?, houseid = ?, category = ? WHERE roomid = ?", [room.name, room.houseid, room.category, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -75,7 +76,7 @@ Room.updateById = (id, room, result) => {
 };
 
 Room.remove = (id, result) => {
-    sql.query("DELETE FROM room WHERE idRoom = ?", id, (err, res) => {
+    sql.query("DELETE FROM room WHERE roomid = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

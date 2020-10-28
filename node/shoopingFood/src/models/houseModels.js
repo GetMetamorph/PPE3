@@ -20,8 +20,8 @@ House.create = (newHouse, result) => {
     });
 };
 
-House.findById = (idhouse, result) => {
-    sql.query(`SELECT * FROM house WHERE idhouse = ${idhouse}`, (err, res) => {
+House.findById = (houseid, result) => {
+    sql.query(`SELECT * FROM house WHERE houseid = ${houseid}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -54,7 +54,7 @@ House.getAll = result => {
 
 House.updateById = (id, house, result) => {
     sql.query(
-        "UPDATE house SET name = ?, adresse = ? WHERE idhouse = ?", [house.name, house.adresse, id],
+        "UPDATE house SET name = ?, adresse = ? WHERE houseid = ?", [house.name, house.adresse, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -75,7 +75,7 @@ House.updateById = (id, house, result) => {
 };
 
 House.remove = (id, result) => {
-    sql.query("DELETE FROM house WHERE idhouse = ?", id, (err, res) => {
+    sql.query("DELETE FROM house WHERE houseid = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
