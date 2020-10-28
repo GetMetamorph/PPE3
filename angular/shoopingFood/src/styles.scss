@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+
+.register,
+.login {
+    width: 400px;
+    background-color: #ffffff;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
+    margin: auto;
+    margin-top: 20vh;
+    h1 {
+        text-align: center;
+        color: #000000;
+        font-size: 24px;
+        padding: 20px 0 20px 0;
+        border-bottom: 1px solid #d3d3d3;
+    }
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 50px;
+        label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        input[type="password"],
+        input[type="text"],
+        input[type="email"] {
+            width: 310px;
+            height: 50px;
+            border: 1px solid #000000;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #000000;
+            border: 0;
+            cursor: pointer;
+            font-weight: bold;
+            color: #ffffff;
+            transition: background-color 0.2s;
+            margin-top: 60px;
+        }
+        input[type="submit"]:hover {
+            background-color: #000000;
+            transition: background-color 0.2s;
+        }
+    }
+}
