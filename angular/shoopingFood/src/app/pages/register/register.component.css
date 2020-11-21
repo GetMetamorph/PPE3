@@ -1,0 +1,68 @@
+.bg-light {
+  background-color: #7899ff !important;
+}
+
+.nav-link {
+  color: #ffffff !important;
+}
+
+.nav-link:hover {
+  color: #227cdb !important;
+}
+
+.navbar-brand {
+  font-family: 'Bree Serif', serif;
+}
+
+.active {
+  color: #94d0f2 !important;
+}
+
+#brand {
+  margin-top: 10%;
+  text-align: center;
+  font-family: 'Bree Serif', serif;
+}
+
+.register form label {
+  background-color: #7899ff;
+  border: 1px solid #7899ff;
+}
+
+.register form label:hover {
+  background-color: #227cdb !important;
+}
+
+.register form input {
+  border: 1px solid #7899ff;
+}
+
+#remdisplay {
+  display: inline;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.login {
+  height: 435px;
+}
+
+.register form input[type="submit"], .login form input[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #94d0f2;
+  border: 0;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ffffff;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+.register form input[type="submit"]:hover, .login form input[type="submit"]:hover {
+  background-color: #227cdb;
+}
+/*# sourceMappingURL=register.component.css.map */
