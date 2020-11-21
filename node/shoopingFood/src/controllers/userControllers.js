@@ -1,7 +1,11 @@
-const User = require("../models/userModels");
+const User = require("../models/userModels"),
+    bcrypt = require('bcrypt');
 
 // Create and Save a new User
-exports.create = (req, res) => {
+exports.create = async(req, res) => {
+    console.time();
+    
+    const isExist = await User.checkEmail(req.body.email)
     // Validate request
     if (!req.body) {
         res.status(400).send({
@@ -9,22 +13,32 @@ exports.create = (req, res) => {
         });
     }
 
-    // Create a User
-    const user = new User({
-        USR_Mail: req.body.email,
-        USR_Firstname: req.body.username,
-        USR_Password: req.body.password
-    });
+    if (isExist != 0) {
+        res.json({ error: true, message: 'Cette adresse mail est déjà utilisé.' })
+    }
 
-    // Save User in the database
-    User.create(user, (err, data) => {
-        if (err)
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the User."
-            });
-        else res.redirect('http://localhost:4200');
-    });
-};
+    else {
+        // Create a User
+        const salt = await bcrypt.genSalt(10) // Création du salt random
+        const hash = await bcrypt.hash(req.body.password, salt) // Chiffrement du password
+        const user = new User({
+            USR_Mail: req.body.email,
+            USR_Firstname: req.body.username,
+            USR_Password: hash
+        });
+
+        // Save User in the database
+        User.create(user, (err, data) => {
+            if (err){
+                res.status(500).send({
+                    message: err.message || "Some error occurred while creating the User."
+                });
+            } else res.redirect('http://localhost:4200');
+        });
+        console.timeEnd();
+
+    };
+}
 
 // Retrieve all User from the database.
 exports.findAll = (req, res) => {

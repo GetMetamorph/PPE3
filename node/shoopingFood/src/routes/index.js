@@ -1,14 +1,17 @@
+
+
 module.exports = app => {
     const user = require("../controllers/userControllers"),
         room = require("../controllers/roomControllers"),
         product = require("../controllers/productControllers"),
-        house = require("../controllers/houseControllers");
+        house = require("../controllers/houseControllers"),
+        auth = require("../../middlewares/auth");
 
     // Create
     app.post("/house", house.create);
     app.post("/room", room.create);
     app.post("/product", product.create);
-    app.post("/user", user.create);
+    app.post("/user", auth.register, user.create);
 
     // Retrieve all
     app.get("/house", house.findAll);

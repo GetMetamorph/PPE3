@@ -106,4 +106,12 @@ User.removeAll = result => {
     });
 };
 
+User.checkEmail = (email) => {
+    return new Promise((resolve, reject) => {
+        sql.query('SELECT COUNT(*) as "count" FROM T_User_USR WHERE USR_Mail = ?', [email], (error, results, fields) => {
+            resolve(results[0].count)
+        });
+    })
+}
+
 module.exports = User;
