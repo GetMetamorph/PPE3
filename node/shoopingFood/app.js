@@ -1,8 +1,22 @@
 const express = require("express"),
     bodyParser = require("body-parser"),
-    app = express();
+    session = require('express-session'),
+    app = express(),
+    cors = require('cors');
 
 
+app.use(cors({
+    origin: [
+        "http://localhost:4200"
+    ],
+    credentials: true
+}));
+
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
 
@@ -18,6 +32,15 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     req.body;
     res.json(req.body);
+});
+
+app.get('/home', function(req, res) {
+    if (req.session.loggedin) {
+        res.send('Welcome back, ' + request.session.username + '!');
+    } else {
+        res.redirect('https://localhost:4200/login');
+    }
+    res.end();
 });
 
 require("./src/routes/index")(app);

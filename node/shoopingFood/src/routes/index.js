@@ -1,17 +1,19 @@
-
-
 module.exports = app => {
     const user = require("../controllers/userControllers"),
         room = require("../controllers/roomControllers"),
         product = require("../controllers/productControllers"),
         house = require("../controllers/houseControllers"),
-        auth = require("../../middlewares/auth");
+        auth = require("../middlewares/auth"),
+        login = require("../middlewares/login");
 
     // Create
     app.post("/house", house.create);
     app.post("/room", room.create);
     app.post("/product", product.create);
     app.post("/user", auth.register, user.create);
+
+    // login
+    app.post("/log", login.login);
 
     // Retrieve all
     app.get("/house", house.findAll);
@@ -23,7 +25,7 @@ module.exports = app => {
     app.get("/house/:idhouse", house.findOne);
     app.get("/room/:idRoom", room.findOne);
     app.get("/product/:idProducts", product.findOne);
-    app.get("/user/:userid", user.findOne);
+    app.get("/user/:userid", user.findOneId);
 
     // Update
     app.put("/house/:idhouse", house.update);

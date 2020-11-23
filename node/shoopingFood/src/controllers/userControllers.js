@@ -4,9 +4,9 @@ const User = require("../models/userModels"),
 // Create and Save a new User
 exports.create = async(req, res) => {
     console.time();
-    
+
     const isExist = await User.checkEmail(req.body.email)
-    // Validate request
+        // Validate request
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
@@ -15,9 +15,7 @@ exports.create = async(req, res) => {
 
     if (isExist != 0) {
         res.json({ error: true, message: 'Cette adresse mail est déjà utilisé.' })
-    }
-
-    else {
+    } else {
         // Create a User
         const salt = await bcrypt.genSalt(10) // Création du salt random
         const hash = await bcrypt.hash(req.body.password, salt) // Chiffrement du password
@@ -29,7 +27,7 @@ exports.create = async(req, res) => {
 
         // Save User in the database
         User.create(user, (err, data) => {
-            if (err){
+            if (err) {
                 res.status(500).send({
                     message: err.message || "Some error occurred while creating the User."
                 });
@@ -53,7 +51,7 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single User with a userid
-exports.findOne = (req, res) => {
+exports.findOneId = (req, res) => {
     User.findById(req.params.userid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
@@ -68,8 +66,26 @@ exports.findOne = (req, res) => {
         } else res.redirect('http://localhost:4200');
 
     });
-};
 
+
+};
+// Find a single User with a username
+exports.findOneName = (req, res) => {
+    User.findByName(req.params.username, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found User with name ${req.params.username}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving User with name " + req.params.username
+                });
+            }
+        } else res.redirect('http://localhost:4200');
+
+    });
+};
 // Update a User identified by the userid in the request
 exports.update = (req, res) => {
     // Validate Request

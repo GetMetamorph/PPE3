@@ -39,8 +39,16 @@ User.findById = (id, result) => {
     });
 };
 
+User.Gethash = (username) => {
+    return new Promise((resolve, reject) => {
+        sql.query(`SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR WHERE USR_Firstname = '${username}'`, (error, results, fields) => {
+            resolve(results[0].USR_Password)
+        });
+    })
+}
+
 User.getAll = result => {
-    sql.query("SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR FROM T_User_USR", (err, res) => {
+    sql.query("SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
