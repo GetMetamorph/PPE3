@@ -17,7 +17,7 @@ exports.login = async(req, res, next) => {
             req.session.username = username;
             res.redirect('http://localhost:4200/home');
         } else {
-            res.json({ error: true, message: 'Mot de passe incorrect' });
+            res.json({ error: true, message: 'Mot de passe incorrect' + ' '+ password +' '+ hash});
         }
     }
 
