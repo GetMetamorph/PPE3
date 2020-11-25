@@ -39,9 +39,9 @@ User.findById = (id, result) => {
     });
 };
 
-User.Gethash = (username) => {
+User.Gethash = (email) => {
     return new Promise((resolve, reject) => {
-        sql.query(`SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR WHERE USR_Firstname = '${username}'`, (error, results, fields) => {
+        sql.query(`SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_User_USR WHERE USR_Mail = '${email}'`, (error, results, fields) => {
             resolve(results[0].USR_Password)
         });
     })

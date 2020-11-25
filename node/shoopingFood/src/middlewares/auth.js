@@ -2,7 +2,6 @@ const connection = require("../models/db");
 const mysql = require("mysql");
 const dbConfig = require("../config/db.config");
 
-
 exports.register = (req, res, next) => {
     console.log(req.body);
 

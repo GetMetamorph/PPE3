@@ -21,7 +21,8 @@ const routes: Routes = [
   },
 
   {
-    path:'home',redirectTo: 'http://localhost:8001/home'
+    path:'home',
+    component: HomeComponent
   }
 
 ];

@@ -1,9 +1,14 @@
-const express = require("express"),
+const dotenv = require('dotenv'),
+    express = require("express"),
     bodyParser = require("body-parser"),
     session = require('express-session'),
     app = express(),
+    cookieParser = require('cookie-parser'),
     cors = require('cors');
+    
 
+
+dotenv.config({ path: './.env'});
 
 app.use(cors({
     origin: [
@@ -28,6 +33,9 @@ app.get("/", (req, res) => {
     req.body;
     res.json({ message: "Welcome Zoubida" });
 });
+
+//parse cookie
+app.use(cookieParser());
 
 app.post("/", (req, res) => {
     req.body;
