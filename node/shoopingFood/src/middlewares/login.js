@@ -4,7 +4,8 @@ const connection = require("../models/db"),
     bcrypt = require('bcrypt'),
     session = require('express-session'),
     User = require('../models/userModels'),
-    jwt = require('jsonwebtoken');
+    jwt = require('jsonwebtoken'),
+    dotenv
 
 exports.login = async(req, res, next) => {
     try{

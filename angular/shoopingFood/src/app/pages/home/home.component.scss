@@ -1,0 +1,44 @@
+.bg-light{
+    background-color: #a6d3ff !important;
+}
+
+.card{
+    border: none;
+}
+
+.nav-link{
+    color: #ffffff !important;
+    &:hover {
+        color: #227cdb !important;
+    }
+}
+.navbar-brand{
+    font-family: 'Bree Serif', serif;
+}
+
+.active{
+    color: #227cdb !important;
+}
+
+.display-4{
+    padding-bottom:50px;
+    text-align: center;
+}
+
+#main-wrapper{
+    margin-top: 5em;
+    margin-bottom: 10em;
+}
+
+#footer{
+    padding-top: 100px;
+    background-color: #a6d3ff;
+}
+
+#resume{
+    padding-top: 100px;
+}
+
+#adjust-main{
+    padding-top: 10px;
+}
