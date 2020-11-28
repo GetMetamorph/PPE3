@@ -4,11 +4,14 @@ const connection = require("../models/db"),
     bcrypt = require('bcrypt'),
     session = require('express-session'),
     User = require('../models/userModels'),
-    jwt = require('jsonwebtoken'),
-    dotenv
+    jwt = require('jsonwebtoken');
+
+require('dotenv').config()
+
 
 exports.login = async(req, res, next) => {
-    try{
+
+    try {
         const { email, password } = req.body;
 
         if (req.body.email === undefined || req.body.password === undefined) {
@@ -16,14 +19,14 @@ exports.login = async(req, res, next) => {
         } else {
             hash = await User.Gethash(email)
             if (bcrypt.compare(password, hash)) {
-                //old
-                req.session.loggedin = true;
-                req.session.email = email;
-                //old
-                connection.query('SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_USER_USR WHERE USR_Mail = ?', [email], async (error, results) => {
-                    const id = results[0].id;
-
-                    const token = jwt.sign({ id }, process.env.JWT_SECRET, {
+                connection.query('SELECT USR_Id, USR_Firstname, USR_Mail, USR_Password, HSE_Id FROM T_USER_USR WHERE USR_Mail = ?', [email], async(error, results) => {
+                    var user = {
+                        "USR_Id": results[0].USR_Id,
+                        "USR_Firstname": results[0].USR_Firstname,
+                        "USR_Mail": results[0].USR_Mail,
+                        "HSE_Id": results[0].HSE_Id
+                    }
+                    const token = jwt.sign(user, process.env.JWT_SECRET, {
                         expiresIn: process.env.JWT_EXPIRES_IN
                     });
 
@@ -33,7 +36,7 @@ exports.login = async(req, res, next) => {
                         expires: new Date(
                             Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
                         ),
-                        httpOnly: true                    
+                        httpOnly: false
                     }
 
                     res.cookie('jwt', token, cookieOptions);
@@ -41,11 +44,10 @@ exports.login = async(req, res, next) => {
                 })
 
             } else {
-                res.json({ error: true, message: 'Mot de passe incorrect'});
+                res.json({ error: true, message: 'Mot de passe incorrect' });
             }
         }
-    }
-    catch (error){
+    } catch (error) {
         console.log(error)
     }
 

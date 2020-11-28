@@ -16,7 +16,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    
   ],
   imports: [
     BrowserModule,
