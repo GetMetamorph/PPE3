@@ -27,3 +27,42 @@ nav{
 .display-5{
     margin-bottom: 2em;
 }
+
+.space{
+    margin: 20px;
+}
+
+.container {
+  display: block;
+  width: 100%;
+}
+
+.card {
+
+  float: left;
+  margin-right: 30px;
+}
+
+#add{
+    vertical-align: middle;
+    height: 200px;
+    position: relative;
+}
+
+#add:hover{
+    opacity: 0.5;
+}
+
+#add:active{
+    opacity: 0.8;
+}
+
+
+.vertical{
+    display: flex;
+    align-items: center;
+    position:absolute; 
+    top:50%; 
+    height: 6em; 
+    margin-top:-5em
+}

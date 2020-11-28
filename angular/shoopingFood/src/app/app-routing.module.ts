@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { MyhomeComponent } from './pages/myhome/myhome.component';
+import { RoomComponent } from './pages/room/room.component';
 
 const routes: Routes = [
   {
@@ -40,8 +41,12 @@ const routes: Routes = [
   {
     path:'myhome',
     component: MyhomeComponent
+  },
+  
+  {
+    path:'room',
+    component: RoomComponent
   }
-
 
 ];
 
