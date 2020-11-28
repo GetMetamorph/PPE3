@@ -1,0 +1,29 @@
+.bg-light{
+    background-color: #a6d3ff !important;
+}
+
+.nav-link{
+    color: #ffffff !important;
+    &:hover {
+        color: #227cdb !important;
+    }
+}
+.navbar-brand{
+    font-family: 'Bree Serif', serif;
+}
+
+.active{
+    color: #227cdb !important;
+}
+
+nav{
+    margin-bottom: 2em;
+}
+
+.centered{
+    text-align: center;
+}
+
+.display-5{
+    margin-bottom: 2em;
+}

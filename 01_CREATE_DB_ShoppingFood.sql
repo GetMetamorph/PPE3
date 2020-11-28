@@ -87,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `T_Room_ROM` (
   `ROM_Id` int(255) NOT NULL AUTO_INCREMENT,
   `ROM_Name` varchar(45) NOT NULL,
   `ROM_Category` varchar(45) NOT NULL,
+  `ROM_Image` varchar(45) NOT NULL,
   `HSE_Id` int(255) NOT NULL,
   PRIMARY KEY (`ROM_Id`,`HSE_Id`),
   KEY `fk_Room_house1_idx` (`HSE_Id`)
