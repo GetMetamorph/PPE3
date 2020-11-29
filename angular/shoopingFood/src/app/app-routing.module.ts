@@ -7,6 +7,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { MyhomeComponent } from './pages/myhome/myhome.component';
 import { RoomComponent } from './pages/room/room.component';
+import { AddroomComponent } from './pages/addroom/addroom.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
   {
     path:'room',
     component: RoomComponent
+  },  
+  
+  {
+    path:'addroom',
+    component: AddroomComponent
   }
 
 ];

@@ -2,14 +2,14 @@ const sql = require("./db");
 
 // constructor
 const Room = function(room) {
-    this.name = room.name;
-    this.houseid = room.houseid;
-    this.category = room.category;
+    this.ROM_Name = room.name;
+    this.HSE_Id = room.houseid;
+    this.ROM_Category = room.category;
 
 };
 
 Room.create = (newRoom, result) => {
-    sql.query("INSERT INTO room SET ?", newRoom, (err, res) => {
+    sql.query("INSERT INTO T_Room_ROM SET ?", newRoom, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

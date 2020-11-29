@@ -11,9 +11,9 @@ exports.create = (req, res) => {
 
     // Create a Room
     const room = new Room({
-        name: req.body.name,
-        houseid: req.body.houseid,
-        category: req.body.category
+        name: req.body.room_name,
+        houseid: req.body.HSE_Id,
+        category: req.body.room_category
     });
 
     // Save Room in the database
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
             res.status(500).send({
                 message: err.message || "Some error occurred while creating the Room."
             });
-        else res.send(data);
+        else res.redirect('http://localhost:4200/myhome');
     });
 };
 
