@@ -29,7 +29,7 @@
 <div class="container" id="main-wrapper">
     <div class="content shadow-lg p-3 mb-5 bg-white rounded">
         <h4 class="centered">Editer profil</h4>
-        <form action="" method="post" autocomplete="on">
+        <form action="" method="post" autocomplete="on" id="form_editP">
             <div class="row" id="adjust-main">
 
                 <div class="col-md-6 cleft">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <input type="email" name="username" class="form-control" id="exampleFirstname" placeholder="[Zicco]">
+                    <input type="text" name="username" class="form-control" id="exampleFirstname" placeholder="[Zicco]">
                 </div>
             </div>
             <div class="row" id="adjust-main">
@@ -66,17 +66,18 @@
                 </div>
 
                 <div class="col-md-6">
-                    <input type="password" name="passwordconfirm" class="form-control" id="exampleInputEmail1" placeholder="Confirm password">
+                    <input type="password" name="passwordconfirm" class="form-control" placeholder="Confirm password">
                 </div>
             </div>
+            <div class="centered vertical-adjust">
 
+                <input class="btn btn-primary space1" type="submit" value="Sauvegarder">
+                <a href="/profile"><button class="btn btn-secondary space2">Annuler</button></a>
+            </div>
         </form>
 
 
-        <div class="centered vertical-adjust">
-            <a href="/edit-profile"><button class="btn btn-primary space1">Sauvegarder</button></a>
-            <a href="/profile"><button class="btn btn-secondary space2">Annuler</button></a>
-        </div>
+
     </div>
 </div>
 
