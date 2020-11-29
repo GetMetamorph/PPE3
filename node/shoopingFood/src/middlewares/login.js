@@ -12,9 +12,12 @@ exports.login = async(req, res, next) => {
 
     try {
         const { email, password } = req.body;
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (req.body.email === undefined || req.body.password === undefined) {
             res.json({ error: true, message: 'Champs non défini' });
+        } else if (!re.test(String(req.body.email).toLowerCase())) {
+            res.json({ error: true, message: 'Email invalide' });
         } else {
             hash = await User.Gethash(email)
             if (bcrypt.compare(password, hash)) {

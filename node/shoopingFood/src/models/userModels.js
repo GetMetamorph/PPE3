@@ -62,7 +62,7 @@ User.getAll = result => {
 
 User.updateById = (id, user, result) => {
     sql.query(
-        "UPDATE T_User_USR SET USR_Mail = ?, USR_Firstname = ?, USR_Password = ? WHERE USR_Id = ?", [user.email, user.username, user.password, id],
+        "UPDATE T_User_USR SET USR_Mail = ?, USR_Firstname = ?, USR_Password = ? WHERE USR_Id = ?", [user.USR_Mail, user.USR_Firstname, user.USR_Password, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -117,6 +117,15 @@ User.removeAll = result => {
 User.checkEmail = (email) => {
     return new Promise((resolve, reject) => {
         sql.query('SELECT COUNT(*) as "count" FROM T_User_USR WHERE USR_Mail = ?', [email], (error, results, fields) => {
+
+            resolve(results[0].count)
+        });
+    })
+}
+User.checkEmailU = (email, id) => {
+    return new Promise((resolve, reject) => {
+        sql.query("SELECT COUNT(*) as 'count' FROM T_User_USR WHERE USR_Mail = ? AND USR_Id = ?", [email, id], (error, results, fields) => {
+            console.log(results)
             resolve(results[0].count)
         });
     })

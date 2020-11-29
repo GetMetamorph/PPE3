@@ -32,7 +32,7 @@ module.exports = app => {
     app.put("/house/:idhouse", house.update);
     app.put("/room/:idRoom", room.update);
     app.put("/product/:idProducts", product.update);
-    app.put("/user/:userid", user.update);
+    app.post("/user/:userid", auth.register, user.update, login.login);
 
     // Delete
     app.delete("/house/:idhouse", house.delete);

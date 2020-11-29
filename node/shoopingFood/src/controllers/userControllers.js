@@ -87,18 +87,30 @@ exports.findOneName = (req, res) => {
     });
 };
 // Update a User identified by the userid in the request
-exports.update = (req, res) => {
-    // Validate Request
+exports.update = async(req, res, next) => {
+
+    const isExist = await User.checkEmail(req.body.email)
+
+    const isOwner = await User.checkEmailU(req.body.email, req.params.userid)
+
+    // Validate request
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
     }
 
-    User.updateById(
-        req.params.userid,
-        new User(req.body),
-        (err, data) => {
+    if (isExist != 0 && isOwner != 1) {
+        res.json({ error: true, message: 'Cette adresse mail est déjà utilisé.' })
+    } else {
+        const salt = await bcrypt.genSalt(10) // Création du salt random
+        const hash = await bcrypt.hash(req.body.password, salt) // Chiffrement du password
+        const useru = new User({
+            USR_Mail: req.body.email,
+            USR_Firstname: req.body.username,
+            USR_Password: hash
+        });
+        User.updateById(req.params.userid, useru, (err, data) => {
             if (err) {
                 if (err.kind === "not_found") {
                     res.status(404).send({
@@ -109,11 +121,13 @@ exports.update = (req, res) => {
                         message: "Error updating User with id " + req.params.userid
                     });
                 }
-            } else res.redirect('http://localhost:4200');
+            } else {
+                res.redirect("http://localhost:4200")
+            }
 
-        }
-    );
-};
+        });
+    };
+}
 
 // Delete a User with the specified userid in the request
 exports.delete = (req, res) => {
