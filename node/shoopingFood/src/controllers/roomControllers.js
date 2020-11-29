@@ -37,6 +37,16 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.getAllByHouse = (req, res) => {
+    Room.getAllByHouse(req.params.idhouse, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving room."
+            });
+        else res.send(data);
+    });
+};
+
 // Find a single Room with a roomid
 exports.findOne = (req, res) => {
     Room.findById(req.params.roomid, (err, data) => {

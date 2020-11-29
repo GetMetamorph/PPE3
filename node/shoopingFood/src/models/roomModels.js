@@ -53,6 +53,26 @@ Room.getAll = result => {
     });
 };
 
+Room.getAllByHouse = (Houseid, result) => {
+    sql.query(`SELECT * FROM t_room_rom Where HSE_Id = ${Houseid}`, (err, res) => {
+
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows == 0) {
+            // not found Room with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        result(null, res);
+
+    })
+};
+
 Room.updateById = (id, room, result) => {
     sql.query(
         "UPDATE room SET name = ?, houseid = ?, category = ? WHERE roomid = ?", [room.name, room.houseid, room.category, id],

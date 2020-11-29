@@ -24,6 +24,7 @@ module.exports = app => {
     // Retrieve by id
     app.get("/house/:idhouse", house.findOne);
     app.get("/room/:idRoom", room.findOne);
+    app.get("/Myhome/:idhouse", room.getAllByHouse);
     app.get("/product/:idProducts", product.findOne);
     app.get("/user/:userid", user.findOneId);
 

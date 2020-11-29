@@ -2,22 +2,29 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 
-  <!-- #region navbar -->
-  
+<!-- #region navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h1 class="navbar-brand" href="#">ShoppingFood</h1>
+    <h1 class="navbar-brand" href="/home">ShoppingFood</h1>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="/myhome">Ma maison</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Produits</a>
+            </li>
         </ul>
 
-        <a class="nav-link" href="/login">Se connecter</a>
-        <a class="nav-link" href="/register">S'inscrire</a>
+        <a class="nav-link active" href="/profile">Profile</a>
+
+        <a class="nav-link" onclick="document.cookie = 'jwt=';" href="/login">
+            Se deconnecter</a>
     </div>
 </nav>
-  <!-- #endregion -->
+<!-- #endregion -->
 
 <div class="container" id="main-wrapper">
 
@@ -28,20 +35,18 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body" id="resume">
-                <h5 class="card-title">Commencez la gestion de votre inventaire</h5>
-                <p class="card-text" >ShoppingFood est un outil permettant de garder un suivi de vos produits, par membre de votre maison, et de créer votre liste de course de manière simple et efficace.</p>
-                <a href="#" class="btn btn-primary">Gerer mon inventaire</a>
+                    <h5 class="card-title">Commencez la gestion de votre inventaire</h5>
+                    <p class="card-text">ShoppingFood est un outil permettant de garder un suivi de vos produits, par membre de votre maison, et de créer votre liste de course de manière simple et efficace.</p>
+                    <a href="#" class="btn btn-primary">Gerer mon inventaire</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6">
-            <img class="img-fluid rounded-circle"  src="../../../assets/shopping.gif" alt="shoppingGif" q>
+            <img class="img-fluid rounded-circle" src="../../../assets/shopping.gif" alt="shoppingGif" q>
         </div>
     </div>
-</div>  
+</div>
 
 <footer id="footer">
 </footer>
-
-

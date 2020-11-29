@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as jwt from 'jsonwebtoken';
 import $ from 'jquery';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+
 
 function getCookie(name) {
   var cookieArr = document.cookie.split(";");
