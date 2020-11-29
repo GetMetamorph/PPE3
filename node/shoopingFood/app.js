@@ -1,11 +1,12 @@
 const dotenv = require('dotenv'),
     express = require("express"),
     bodyParser = require("body-parser"),
-    session = require('express-session'),
     app = express(),
     cookieParser = require('cookie-parser'),
-    cors = require('cors');
-    
+    cors = require('cors'),
+    jwt = require('jsonwebtoken');
+
+require('dotenv').config();
 
 
 //dotenv.config({ path: './.env'});
@@ -17,11 +18,6 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}));
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
 
@@ -42,14 +38,24 @@ app.post("/", (req, res) => {
     res.json(req.body);
 });
 
-app.get('/home', function(req, res) {
-    if (req.session.loggedin) {
-        res.send('Welcome back, ' + request.session.username + '!');
-    } else {
-        res.redirect('https://localhost:4200/login');
-    }
-    res.end();
+app.all("/*", function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    next();
 });
+
+app.get('/checktoken', function(req, res) {
+    var token = req.header('token');
+    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
+        if (!err) {
+            res.send(true)
+        } else {
+            res.send(err.message);
+        }
+    })
+})
+
 
 require("./src/routes/index")(app);
 

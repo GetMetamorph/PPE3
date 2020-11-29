@@ -9,7 +9,8 @@
 
 # dependencies
 /node_modules
-
+# patch jwt / jquery
+!/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/browser.js
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
