@@ -49,7 +49,7 @@ exports.getAllByHouse = (req, res) => {
 
 // Find a single Room with a roomid
 exports.findOne = (req, res) => {
-    Room.findById(req.params.roomid, (err, data) => {
+    Room.findById(req.params.idRoom, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({

@@ -56,6 +56,16 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.getAllByHouse = (req, res) => {
+    Product.getAllByHouse(req.params.idhouse, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving room."
+            });
+        else res.send(data);
+    });
+};
+
 // Update a Product identified by the productid in the request
 exports.update = (req, res) => {
     // Validate Request

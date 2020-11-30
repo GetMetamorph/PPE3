@@ -25,7 +25,8 @@ module.exports = app => {
     app.get("/house/:idhouse", house.findOne);
     app.get("/room/:idRoom", room.findOne);
     app.get("/Myhome/:idhouse", room.getAllByHouse);
-    app.get("/product/:idProducts", product.findOne);
+    app.get("/products/:idhouse", product.getAllByHouse);
+    app.get("/product/:productid", product.findOne);
     app.get("/user/:userid", user.findOneId);
 
     // Update

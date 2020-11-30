@@ -1,0 +1,63 @@
+.bg-light {
+  background-color: #a6d3ff !important;
+}
+
+.nav-link {
+  color: #ffffff !important;
+}
+
+.nav-link:hover {
+  color: #227cdb !important;
+}
+
+.navbar-brand {
+  font-family: 'Bree Serif', serif;
+}
+
+.active {
+  color: #227cdb !important;
+}
+
+#main-wrapper {
+  margin-top: 5em;
+  margin-bottom: 10em;
+}
+
+#footer {
+  padding-top: 110px;
+  background-color: #a6d3ff;
+}
+
+.content {
+  margin-top: 150px;
+}
+
+.centered {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.adjust {
+  margin-top: 100px;
+}
+
+.cleft {
+  text-align: right;
+}
+
+.row {
+  margin-top: 1em;
+}
+
+.vertical-adjust {
+  margin-top: 3em;
+}
+
+.space1 {
+  margin-right: 10px;
+}
+
+.space2 {
+  margin-left: 10px;
+}
+/*# sourceMappingURL=inventory.component.css.map */

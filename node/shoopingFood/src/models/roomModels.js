@@ -22,7 +22,7 @@ Room.create = (newRoom, result) => {
 };
 
 Room.findById = (roomid, result) => {
-    sql.query(`SELECT * FROM room WHERE roomid = ${roomid}`, (err, res) => {
+    sql.query(`SELECT * FROM t_room_rom WHERE ROM_Id = ${roomid}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -41,7 +41,7 @@ Room.findById = (roomid, result) => {
 };
 
 Room.getAll = result => {
-    sql.query("SELECT * FROM room", (err, res) => {
+    sql.query("SELECT * FROM t_room_rom", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -75,7 +75,7 @@ Room.getAllByHouse = (Houseid, result) => {
 
 Room.updateById = (id, room, result) => {
     sql.query(
-        "UPDATE room SET name = ?, houseid = ?, category = ? WHERE roomid = ?", [room.name, room.houseid, room.category, id],
+        "UPDATE t_room_rom SET name = ?, houseid = ?, category = ? WHERE ROM_Id = ?", [room.name, room.houseid, room.category, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -96,7 +96,7 @@ Room.updateById = (id, room, result) => {
 };
 
 Room.remove = (id, result) => {
-    sql.query("DELETE FROM room WHERE roomid = ?", id, (err, res) => {
+    sql.query("DELETE FROM t_room_rom WHERE ROM_Id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -115,7 +115,7 @@ Room.remove = (id, result) => {
 };
 
 Room.removeAll = result => {
-    sql.query("DELETE FROM room", (err, res) => {
+    sql.query("DELETE FROM t_room_rom", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);

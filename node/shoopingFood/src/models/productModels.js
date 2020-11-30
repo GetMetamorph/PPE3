@@ -22,7 +22,7 @@ Product.create = (newProduct, result) => {
 };
 
 Product.findById = (productid, result) => {
-    sql.query(`SELECT * FROM product WHERE productid = ${productid}`, (err, res) => {
+    sql.query(`SELECT * FROM t_product_pdc WHERE PDC_Id = ${productid}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -51,6 +51,25 @@ Product.getAll = result => {
         console.log("product: ", res);
         result(null, res);
     });
+};
+
+Product.getAllByHouse = (Houseid, result) => {
+    sql.query(`SELECT * FROM t_stock_stk Where HSE_Id = ${Houseid}`, (err, res) => {
+
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows == 0) {
+            // not found Room with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        result(null, res);
+    })
 };
 
 Product.updateById = (id, product, result) => {
