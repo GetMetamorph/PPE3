@@ -27,10 +27,10 @@ function LoadHome(house) {
                 <div class="card-body">
                     <h5 class="card-title">${room.ROM_Name}</h5>
                     <p class="card-text">Coût de la pièce : 20 $</p>
-                    <a href="#" class="btn btn-primary">Inventaire</a>
+                    <a href="/room" class="btn btn-primary">Inventaire</a>
+                    <button type="button" class="btn btn-danger" onclick="confirm('êtes vous sûr de vouloir supprimer cette pièce ?'); event.stopPropagation();">Supprimer</button>
                 </div>
             </div>
-    
     `)
   });
   

@@ -14,11 +14,11 @@
                 <a class="nav-link active" href="/myhome">Ma maison</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Produits</a>
+                <a class="nav-link" href="/inventory">Produits</a>
             </li>
         </ul>
 
-        <a class="nav-link active" href="/profile">Profile</a>
+        <a class="nav-link active" href="/profile">Profil</a>
 
         <a class="nav-link" onclick="document.cookie = 'jwt=';" href="/login">
             Se deconnecter</a>
@@ -26,6 +26,31 @@
 </nav>
 
 <div class="container">
+    <h3 class="centered">Produits [NomPiece]</h3>
+    <div class="row">
 
-
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prix unité</th>
+                    <th scope="col">Lien produit</th>
+                    <th scope="col">Quantité</th>
+                </tr>
+            </thead>
+            <tbody id="productstab">
+                <tr>
+                    <td><p id="name_product" class="col-md-6" name="name_product">Carambar</p></td>
+                    <td><p id = "price_product" class="col-md-6" name="price_product">14,99 €</p></td>
+                    <td><a id = "link_product" class="col-md-6" name="link_product" href="https://www.amazon.fr/CARAMBAR-Caranougat-320g/dp/B00JNRE692/ref=sr_1_13?dchild=1&qid=1606752127&refinements=p_4%3ACARAMBAR&s=grocery&sr=1-13">Détail</a></td>
+                    <td><p id="qty_product" class="col-md-6" name="qty_product">20</p></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Requete SQL pour récupéré le total des produits d'une piece 
+        SELECT (pdc.PDC_price * stk.STK_Qty) AS TOTAL FROM `t_stock_stk` as stk INNER JOIN t_product_pdc as pdc ON stk.PDC_Id = pdc.PDC_Id 
+        -->
+        
+        <h4>Total : [Total]</h4>
+    </div>
 </div>
