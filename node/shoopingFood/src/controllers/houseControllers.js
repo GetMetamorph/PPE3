@@ -1,7 +1,6 @@
 const House = require("../models/houseModels");
-
 // Create and Save a new House
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
     // Validate request
     if (!req.body) {
         res.status(400).send({
@@ -11,8 +10,8 @@ exports.create = (req, res) => {
 
     // Create a House
     const house = new House({
-        name: req.body.name,
-        adresse: req.body.adresse
+        HSE_Name: req.body.HSE_Name,
+        HSE_Address: req.body.HSE_Address
     });
 
     // Save House in the database
@@ -21,7 +20,10 @@ exports.create = (req, res) => {
             res.status(500).send({
                 message: err.message || "Some error occurred while creating the House."
             });
-        else res.send(data);
+        else {
+            req.body.HSE_Id = data.id
+            next()
+        }
     });
 };
 
@@ -52,6 +54,7 @@ exports.findOne = (req, res) => {
         } else res.send(data);
     });
 };
+
 
 // Update a House identified by the houseid in the request
 exports.update = (req, res) => {

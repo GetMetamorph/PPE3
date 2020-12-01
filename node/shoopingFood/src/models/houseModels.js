@@ -2,20 +2,21 @@ const sql = require("./db");
 
 // constructor
 const House = function(house) {
-    this.name = house.name;
-    this.adresse = house.adresse;
+    this.HSE_Name = house.HSE_Name;
+    this.HSE_Address = house.HSE_Address;
 
 };
 
 House.create = (newHouse, result) => {
-    sql.query("INSERT INTO house SET ?", newHouse, (err, res) => {
+    sql.query("INSERT INTO t_house_hse SET ?", newHouse, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
+
         }
 
-        console.log("created house: ", { id: res.insertId, ...newHouse });
+        console.log("created product: ", { id: res.insertId, ...newHouse });
         result(null, { id: res.insertId, ...newHouse });
     });
 };

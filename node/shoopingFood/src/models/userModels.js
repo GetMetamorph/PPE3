@@ -82,6 +82,28 @@ User.updateById = (id, user, result) => {
     );
 };
 
+User.updateHouse = (id, HSE_Id, result) => {
+    sql.query(
+        "UPDATE T_User_USR SET HSE_Id = ? WHERE USR_Id = ?", [HSE_Id, id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
+
+            if (res.affectedRows == 0) {
+                // not found User with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated user: ", { id: id });
+            result(null, { id: id });
+        }
+    );
+};
+
 User.remove = (id, result) => {
     sql.query("DELETE FROM user WHERE USR_Id = ?", id, (err, res) => {
         if (err) {

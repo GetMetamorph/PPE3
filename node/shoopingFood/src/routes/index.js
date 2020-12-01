@@ -7,7 +7,7 @@ module.exports = app => {
         login = require("../middlewares/login");
 
     // Create
-    app.post("/house", house.create);
+    app.post("/house/:userid", house.create, user.updateHouse, user.findOneId, login.loginEZ);
     app.post("/room", room.create);
     app.post("/product", product.create);
     app.post("/user", auth.register, user.create);
@@ -27,9 +27,12 @@ module.exports = app => {
     app.get("/Myhome/:idhouse", room.getAllByHouse);
     app.get("/products/:idhouse", product.getAllByHouse);
     app.get("/product/:productid", product.findOne);
-    app.get("/ProductTotal/:productid&:idRoom", product.findTotal);
+    app.get("/ProductTotal/:idRoom", product.findTotal);
     app.get("/productsRoom/:idRoom", product.getAllByRoom);
     app.get("/user/:userid", user.findOneId);
+
+    app.get("/qty/:qty&:PDC_Id&:ROM_Id", product.updateQty);
+
 
     // Update
     app.put("/house/:idhouse", house.update);
@@ -40,8 +43,9 @@ module.exports = app => {
     // Delete
     app.delete("/house/:idhouse", house.delete);
     app.delete("/room/:idRoom", room.delete);
-    app.delete("/product/:idProducts", product.delete);
     app.delete("/user/:userid", user.delete);
+
+    app.delete("/product/:productid&:roomid", product.removeInRoom);
 
     // Delete all
     app.delete("/house", house.deleteAll);

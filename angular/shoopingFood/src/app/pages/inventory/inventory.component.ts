@@ -6,8 +6,6 @@ import $ from 'jquery';
 
 
 var Stock = []
-var Products = []
-var Rooms = []
 var HouseRoom = []
 
 function getCookie(name) {
@@ -21,26 +19,27 @@ function getCookie(name) {
   return null;
 }
 
-function LoadProducts(Products, Stock, Rooms, HouseRoom) {
+function LoadProducts( Stock, HouseRoom) {
+  console.log(Stock)
   $("#productstab").empty()
-  for (let i = 0; i < Products.length; i++) {
+  for (let i = 0; i < Stock[0].length; i++) {
     $("#productstab").append(`
     <tr>
         <td>
-            <div class="form-control col-md-6" id="name_product" name="name_product">${Products[i].PDC_Name}</div>
+            <div class="form-control col-md-6" id="name_product" name="name_product">${Stock[0][i].PDC_Name}</div>
         </td>
         <td>
-            <div class="form-control col-md-6" id="desc_product" name="desc_product">${Products[i].PDC_Description}</div>
+            <div class="form-control col-md-6" id="desc_product" name="desc_product">${Stock[0][i].PDC_Description}</div>
         </td>
-        <td><a id="link_product" class="col-md-6" name="link_product" href="${Products[i].PDC_Link}">Détail</a></td>
+        <td><a id="link_product" class="col-md-6" name="link_product" href="${Stock[0][i].PDC_Link}">Détail</a></td>
         <td>
-            <div class="form-control col-md-6" id="price_product" name="price_product">${Products[i].PDC_Price}</div>
+            <div class="form-control col-md-6" id="price_product" name="price_product">${Stock[0][i].PDC_Price}</div>
         </td>
         <td>
             <div class="form-control col-md-6" id="qty_product" name="qty_product">${Stock[0][i].STK_Qty}</div>
         </td>
         <td>
-            <div id="room" name="room" class="form-control">${Rooms[i].ROM_Name}</div>
+            <div id="room" name="room" class="form-control">${Stock[0][i].ROM_Name}</div>
         </td>
     </tr>
     
@@ -83,34 +82,14 @@ export class InventoryComponent implements OnInit {
 
     this.http.get(`http://localhost:8001/products/${user.HSE_Id}`)   
     .subscribe(data => {
+      console.log(data)
       Stock.push(data);
       
       this.http.get(`http://localhost:8001/Myhome/${user.HSE_Id}`)   
       .subscribe(data => {
         HouseRoom.push(data)
+        LoadProducts( Stock, HouseRoom)
 
-        for (let i = 0; i < Stock[0].length; i++) {
-
-        this.http.get(`http://localhost:8001/product/${Stock[0][i].PDC_Id}`)   
-      .subscribe(data => {
-        Products.push(data)
-
-        this.http.get(`http://localhost:8001/room/${Stock[0][i].ROM_Id}`)   
-      .subscribe(data => {
-        Rooms.push(data)
-
-        LoadProducts(Products, Stock, Rooms, HouseRoom)
-
-      }, error => {
-        if(error){
-        this.router.navigate(['login'])
-      }});
-
-      }, error => {
-        if(error){
-        this.router.navigate(['login'])
-      }});
-    }
       }, error => {
         if(error){
         this.router.navigate(['login'])

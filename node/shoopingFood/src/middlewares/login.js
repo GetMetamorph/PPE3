@@ -54,3 +54,31 @@ exports.login = async(req, res, next) => {
     }
 
 }
+
+
+exports.loginEZ = async(req, res, next) => {
+    console.log(req.body)
+    var user = {
+        "USR_Id": req.body.USR_Id,
+        "USR_Firstname": req.body.USR_Firstname,
+        "USR_Mail": req.body.USR_Mail,
+        "HSE_Id": req.body.HSE_Id
+    }
+    const token = jwt.sign(user, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN
+    });
+
+    console.log("Le token est : " + token)
+
+    const cookieOptions = {
+        expires: new Date(
+            Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+        ),
+        httpOnly: false
+    }
+
+    res.cookie('jwt', token, cookieOptions);
+    res.status(240).redirect('http://localhost:4200/myhome')
+
+
+}

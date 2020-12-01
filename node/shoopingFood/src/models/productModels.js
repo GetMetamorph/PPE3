@@ -41,7 +41,7 @@ Product.findById = (productid, result) => {
 };
 
 Product.findTotalById = (productid, idRoom, result) => {
-    sql.query(`SELECT (pdc.PDC_price * stk.STK_Qty) AS TOTAL FROM t_stock_stk as stk INNER JOIN t_product_pdc as pdc ON stk.PDC_Id = pdc.PDC_Id WHERE stk.PDC_Id = ${productid} AND stk.ROM_Id = ${idRoom}`, (err, res) => {
+    sql.query(`SELECT (SUM(pdc.PDC_Price * stk.STK_Qty)) AS Total FROM t_stock_stk AS stk INNER JOIN t_product_pdc AS pdc ON stk.PDC_Id = pdc.PDC_Id  WHERE stk.ROM_Id = ${idRoom} `, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -73,7 +73,7 @@ Product.getAll = result => {
 };
 
 Product.getAllByHouse = (Houseid, result) => {
-    sql.query(`SELECT * FROM t_stock_stk Where HSE_Id = ${Houseid}`, (err, res) => {
+    sql.query(`SELECT PDC_Name, PDC_Description, PDC_Link, PDC_Price, stk.STK_Qty, ROM_Name FROM t_product_pdc AS pdc INNER JOIN t_stock_stk AS stk ON pdc.PDC_Id = stk.PDC_Id INNER JOIN t_room_rom AS rom ON stk.ROM_Id = rom.ROM_Id WHERE rom.HSE_Id = ${Houseid}`, (err, res) => {
 
         if (err) {
             console.log("error: ", err);
@@ -92,7 +92,7 @@ Product.getAllByHouse = (Houseid, result) => {
 };
 
 Product.getAllByRoom = (idRoom, result) => {
-    sql.query(`SELECT * FROM t_stock_stk Where ROM_Id = ${idRoom}`, (err, res) => {
+    sql.query(`SELECT PDC.PDC_Name, PDC.PDC_Price, PDC.PDC_Link, PDC.PDC_Id, stk.STK_Qty, stk.ROM_Id  FROM t_product_pdc AS PDC INNER JOIN t_stock_stk AS stk ON pdc.PDC_Id = stk.PDC_Id WHERE stk.ROM_Id = ${idRoom}`, (err, res) => {
 
         if (err) {
             console.log("error: ", err);
@@ -131,7 +131,28 @@ Product.updateById = (id, product, result) => {
         }
     );
 };
+Product.updateQty = (Qty, PDC_Id, ROM_Id, result) => {
+    console.log(Qty)
+    sql.query(
+        "UPDATE t_stock_stk SET STK_Qty = ? WHERE PDC_Id = ? AND ROM_Id = ?", [Qty, PDC_Id, ROM_Id],
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(null, err);
+                return;
+            }
 
+            if (res.affectedRows == 0) {
+                // not found Product with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+
+            console.log("updated product: ");
+            result(null);
+        }
+    );
+};
 Product.remove = (id, result) => {
     sql.query("DELETE FROM product WHERE productid = ?", id, (err, res) => {
         if (err) {
@@ -150,7 +171,24 @@ Product.remove = (id, result) => {
         result(null, res);
     });
 };
+Product.removeInRoom = (id, room, result) => {
+    sql.query("DELETE FROM t_Stock_stk WHERE PDC_Id = ? AND ROM_Id = ?", [id, room], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
 
+        if (res.affectedRows == 0) {
+            // not found Product with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        console.log("deleted product with id: ", id);
+        result(null, res);
+    });
+};
 Product.removeAll = result => {
     sql.query("DELETE FROM product", (err, res) => {
         if (err) {

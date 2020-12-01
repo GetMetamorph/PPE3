@@ -120,6 +120,29 @@ exports.update = (req, res) => {
     );
 };
 
+exports.updateQty = (req, res) => {
+    // Validate Request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+
+    Product.updateQty(req.params.qty, req.params.PDC_Id, req.params.ROM_Id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Product with id.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error updating Product with id "
+                });
+            }
+        } else res.send(data);
+    });
+};
+
 // Delete a Product with the specified productid in the request
 exports.delete = (req, res) => {
     Product.remove(req.params.productid, (err, data) => {
@@ -136,7 +159,21 @@ exports.delete = (req, res) => {
         } else res.send({ message: `Product was deleted successfully!` });
     });
 };
-
+exports.removeInRoom = (req, res) => {
+    Product.removeInRoom(req.params.productid, req.params.roomid, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Product with id ${req.params.productid}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Could not delete Product with id " + req.params.productid
+                });
+            }
+        } else res.send({ message: `Product was deleted successfully!` });
+    });
+};
 // Delete all Product from the database.
 exports.deleteAll = (req, res) => {
     Product.removeAll((err, data) => {

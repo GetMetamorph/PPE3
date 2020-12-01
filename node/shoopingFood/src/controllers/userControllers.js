@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single User with a userid
-exports.findOneId = (req, res) => {
+exports.findOneId = (req, res, next) => {
     User.findById(req.params.userid, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
@@ -63,7 +63,7 @@ exports.findOneId = (req, res) => {
                     message: "Error retrieving User with id " + req.params.userid
                 });
             }
-        } else res.redirect('http://localhost:4200');
+        } else next()
 
     });
 
@@ -87,7 +87,7 @@ exports.findOneName = (req, res) => {
     });
 };
 // Update a User identified by the userid in the request
-exports.update = async(req, res, next) => {
+exports.update = async(req, res) => {
 
     const isExist = await User.checkEmail(req.body.email)
 
@@ -129,6 +129,32 @@ exports.update = async(req, res, next) => {
     };
 }
 
+exports.updateHouse = (req, res, next) => {
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+    User.updateHouse(req.params.userid, req.body.HSE_Id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found User with id ${req.params.userid}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error updating User with id " + req.params.userid
+                });
+            }
+        } else {
+            next()
+        }
+
+    });
+
+}
+
 // Delete a User with the specified userid in the request
 exports.delete = (req, res) => {
     User.remove(req.params.userid, (err, data) => {
@@ -145,6 +171,7 @@ exports.delete = (req, res) => {
         } else res.send({ message: `User was deleted successfully!` });
     });
 };
+
 
 // Delete all User from the database.
 exports.deleteAll = (req, res) => {

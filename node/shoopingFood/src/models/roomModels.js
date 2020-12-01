@@ -96,7 +96,7 @@ Room.updateById = (id, room, result) => {
 };
 
 Room.remove = (id, result) => {
-    sql.query("DELETE FROM t_room_rom WHERE ROM_Id = ?", id, (err, res) => {
+    sql.query("DELETE t_stock_stk, t_room_rom FROM t_stock_stk INNER JOIN t_room_rom ON t_stock_stk.ROM_Id = t_room_rom.ROM_Id WHERe t_room_rom.ROM_Id = ?", id, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
