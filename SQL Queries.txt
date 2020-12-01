@@ -1,0 +1,9 @@
+product data:
+SELECT PDC_Name, PDC_Price, PDC_Link, STK_Qty  FROM t_product_pdc AS PDC INNER JOIN t_stock_stk AS stk ON pdc.PDC_Id = stk.PDC_Id
+
+
+Cout total par piece:
+SELECT (SUM(pdc.PDC_Price * stk.STK_Qty)) AS Total FROM t_stock_stk AS stk INNER JOIN t_product_pdc AS pdc ON stk.PDC_Id = pdc.PDC_Id  WHERE stk.ROM_Id = {Id de la room} 
+
+Inventaire par maison:
+SELECT PDC_Name, PDC_Description, PDC_Link, PDC_Price, stk.STK_Qty FROM t_product_pdc AS pdc INNER JOIN t_stock_stk AS stk ON pdc.PDC_Id = stk.PDC_Id INNER JOIN t_room_rom AS rom ON stk.ROM_Id = rom.ROM_Id WHERE rom.HSE_Id = {Val de l'id de la maison}
