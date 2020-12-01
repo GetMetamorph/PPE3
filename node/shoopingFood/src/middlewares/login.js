@@ -78,7 +78,7 @@ exports.loginEZ = async(req, res, next) => {
     }
 
     res.cookie('jwt', token, cookieOptions);
-    res.status(240).redirect('http://localhost:4200/myhome')
+    res.status(240).redirect('http://localhost:4200/home')
 
 
 }

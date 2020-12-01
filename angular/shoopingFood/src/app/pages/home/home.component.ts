@@ -32,6 +32,8 @@ function LoadHome() {
 
         <input type="submit" value="Creer">
     </form>
+    <h1>Ou Rejoindre une maison</h1>
+    <button type="button" class="btn" id="myBtn" >rejoindre</button>
     
     `)
 
@@ -55,7 +57,27 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    var token = getCookie("jwt");
+  var user: any = jwt.decode(token);
     LoadHome()
+    $("#myBtn").on("click", function() {
+      $("#resume").empty()
+      $("#resume").append(`
+    
+    <h1>Rejoindre une maison</h1>
+    <form action="http://localhost:8001/houseJoin/${user.USR_Id}" method="post" autocomplete="off">
+
+        <input type="text" name="HSE_Name" placeholder="Nom de la maison" id="HSE_Name" required>
+
+        <input type="text" name="HSE_Address" placeholder="Adresse de la maison" id="HSE_Address" required>
+
+        <input type="submit" value="Rejoindre">
+    </form>
+
+    
+    `)
+
+    })
   }
 
 }

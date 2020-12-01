@@ -39,19 +39,23 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single House with a houseid
-exports.findOne = (req, res) => {
-    House.findById(req.params.houseid, (err, data) => {
+exports.findId = (req, res, next) => {
+    House.findId(req.body.HSE_Name, req.body.HSE_Address, (err, data) => {
+        console.log(data)
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found House with id ${req.params.houseid}.`
+                    message: `Not found House with id.`
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving House with id " + req.params.houseid
+                    message: "Error retrieving House with id "
                 });
             }
-        } else res.send(data);
+        } else {
+            req.body.HSE_Id = data.HSE_Id
+            next()
+        }
     });
 };
 

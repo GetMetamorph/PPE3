@@ -8,6 +8,7 @@ module.exports = app => {
 
     // Create
     app.post("/house/:userid", house.create, user.updateHouse, user.findOneId, login.loginEZ);
+    app.post("/houseJoin/:userid", house.findId, user.updateHouse, user.findOneId, login.loginEZ);
     app.post("/room", room.create);
     app.post("/product", product.create);
     app.post("/user", auth.register, user.create);
@@ -22,7 +23,6 @@ module.exports = app => {
     app.get("/user", user.findAll);
 
     // Retrieve by id
-    app.get("/house/:idhouse", house.findOne);
     app.get("/room/:idRoom", room.findOne);
     app.get("/Myhome/:idhouse", room.getAllByHouse);
     app.get("/products/:idhouse", product.getAllByHouse);

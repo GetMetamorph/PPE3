@@ -21,8 +21,8 @@ House.create = (newHouse, result) => {
     });
 };
 
-House.findById = (houseid, result) => {
-    sql.query(`SELECT * FROM house WHERE houseid = ${houseid}`, (err, res) => {
+House.findId = (housename, houseaddresse, result) => {
+    sql.query(`SELECT * FROM t_house_hse WHERE HSE_Name = '${housename}' AND HSE_Address = '${houseaddresse}'`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
