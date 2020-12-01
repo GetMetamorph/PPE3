@@ -43,7 +43,10 @@ function LoadRoom(Stock,Products){
       </td>
       <td><a id="link_product" class="col-md-6" name="link_product" href="${Products[i].PDC_Link}">Détail</a></td>
       <td>
-          <p id="qty_product" class="col-md-6" name="qty_product">${Stock[0][i].STK_Qty}</p>
+          <input type="number" id="qty_product" class="col-md-6" name="qty_product" value="${Stock[0][i].STK_Qty}"></input>
+      </td>
+      <td>
+      <button type="button" class="btn btn-danger" id="myBtn-" data-index="" >Supprimer</button>
       </td>
   </tr>
   `)
