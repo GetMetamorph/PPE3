@@ -32,6 +32,7 @@ function LoadProducts(Products, Stock, Rooms, HouseRoom) {
         <td>
             <div class="form-control col-md-6" id="desc_product" name="desc_product">${Products[i].PDC_Description}</div>
         </td>
+        <td><a id="link_product" class="col-md-6" name="link_product" href="${Products[i].PDC_Link}">Détail</a></td>
         <td>
             <div class="form-control col-md-6" id="price_product" name="price_product">${Products[i].PDC_Price}</div>
         </td>
@@ -49,6 +50,7 @@ function LoadProducts(Products, Stock, Rooms, HouseRoom) {
   <tr>
   <td><input type="text" class="form-control col-md-6" id="name_product" name="name_product"></td>
   <td><input type="text" class="form-control col-md-6" id="desc_product" name="desc_product"></td>
+  <td><input type="text" class="form-control col-md-6" id="link_product" name="link_product"></td>
   <td><input type="number" class="form-control col-md-6" id="price_product" name="price_product"></td>
   <td><input type="number" class="form-control col-md-6" id="qty_product" name="qty_product"></td>
   <td><select id="roomlist" name="room" class="form-control">
@@ -72,6 +74,8 @@ function LoadProducts(Products, Stock, Rooms, HouseRoom) {
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements OnInit {
+
+  //A Changer avec Switch map et Forkjoin 
 
   constructor(private http: HttpClient, private router:Router) { 
     var token = getCookie("jwt");
@@ -111,9 +115,6 @@ export class InventoryComponent implements OnInit {
         if(error){
         this.router.navigate(['login'])
       }});
-      
-    
-    
     }, error => {
       if(error){
       this.router.navigate(['login'])

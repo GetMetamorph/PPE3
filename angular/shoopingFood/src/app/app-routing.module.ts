@@ -9,6 +9,8 @@ import { MyhomeComponent } from './pages/myhome/myhome.component';
 import { RoomComponent } from './pages/room/room.component';
 import { AddroomComponent } from './pages/addroom/addroom.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
+import { ProductComponent } from './pages/product/product.component';
+import { ProductEditComponent } from './pages/product-edit/product-edit.component';
 
 const routes: Routes = [
   {
@@ -58,6 +60,16 @@ const routes: Routes = [
   {
     path:'inventory',
     component: InventoryComponent
+  },
+
+  {
+    path:'product',
+    component: ProductComponent
+  },
+
+  {
+    path:'edit-product',
+    component: ProductEditComponent
   }
 
 ];

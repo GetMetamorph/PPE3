@@ -94,7 +94,7 @@ exports.update = (req, res) => {
 
 // Delete a Room with the specified roomid in the request
 exports.delete = (req, res) => {
-    Room.remove(req.params.roomid, (err, data) => {
+    Room.remove(req.params.idRoom, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({

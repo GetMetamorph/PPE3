@@ -40,6 +40,25 @@ Product.findById = (productid, result) => {
     });
 };
 
+Product.findTotalById = (productid, idRoom, result) => {
+    sql.query(`SELECT (pdc.PDC_price * stk.STK_Qty) AS TOTAL FROM t_stock_stk as stk INNER JOIN t_product_pdc as pdc ON stk.PDC_Id = pdc.PDC_Id WHERE stk.PDC_Id = ${productid} AND stk.ROM_Id = ${idRoom}`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        if (res.length) {
+            console.log("found product: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        // not found Product with the id
+        result({ kind: "not_found" }, null);
+    });
+};
+
 Product.getAll = result => {
     sql.query("SELECT * FROM product", (err, res) => {
         if (err) {
@@ -55,6 +74,25 @@ Product.getAll = result => {
 
 Product.getAllByHouse = (Houseid, result) => {
     sql.query(`SELECT * FROM t_stock_stk Where HSE_Id = ${Houseid}`, (err, res) => {
+
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows == 0) {
+            // not found Room with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        result(null, res);
+    })
+};
+
+Product.getAllByRoom = (idRoom, result) => {
+    sql.query(`SELECT * FROM t_stock_stk Where ROM_Id = ${idRoom}`, (err, res) => {
 
         if (err) {
             console.log("error: ", err);

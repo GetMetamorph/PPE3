@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
 
-
+<!-- #region navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <h1 class="navbar-brand" href="/home">ShoppingFood</h1>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,34 +18,45 @@
             </li>
         </ul>
 
-        <a class="nav-link active" href="/profile">Profil</a>
+        <a class="nav-link active" href="/profile">Profile</a>
 
         <a class="nav-link" onclick="document.cookie = 'jwt=';" href="/login">
             Se deconnecter</a>
     </div>
 </nav>
+<!-- #endregion -->
 
-<div class="container" id="tab">
-    <h3 class="centered" id="room_name">Produits </h3>
-    <div class="row">
+<div class="container" id="main-wrapper">
+    <div class="content shadow-lg p-3 mb-5 bg-white rounded">
+        <h4 class="centered" id="USR_Username">Profil de </h4>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prix unité</th>
-                    <th scope="col">Lien produit</th>
-                    <th scope="col">Quantité</th>
-                </tr>
-            </thead>
-            <tbody id="productstab">
+        <div class="row" id="adjust-main">
 
-            </tbody>
-        </table>
-        <!-- Requete SQL pour récupéré le total des produits d'une piece 
-        SELECT (pdc.PDC_price * stk.STK_Qty) AS TOTAL FROM `t_stock_stk` as stk INNER JOIN t_product_pdc as pdc ON stk.PDC_Id = pdc.PDC_Id 
-        -->
+            <div class="col-md-6 cleft">
+                <p class="font-weight-bold">Prénom :</p>
+            </div>
 
-        <h4 id="total">Total : </h4>
+            <div class="col-md-6">
+                <p class="font-weight-normal" id="USR_Firstname"></p>
+            </div>
+        </div>
+        <div class="row" id="adjust-main">
+
+            <div class="col-md-6 cleft">
+                <p class="font-weight-bold">Addresse Mail :</p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="font-weight-normal" id="USR_Mail"></p>
+            </div>
+        </div>
+
+        <div class="centered vertical-adjust">
+            <a href="/edit-product"><button class="btn btn-primary space1">Editer produit</button></a>
+        </div>
     </div>
 </div>
+
+
+<footer id="footer">
+</footer>

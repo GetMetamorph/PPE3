@@ -13,6 +13,8 @@ import { MyhomeComponent } from './pages/myhome/myhome.component';
 import { RoomComponent } from './pages/room/room.component';
 import { AddroomComponent } from './pages/addroom/addroom.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
+import { ProductComponent } from './pages/product/product.component';
+import { ProductEditComponent } from './pages/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { InventoryComponent } from './pages/inventory/inventory.component';
     MyhomeComponent,
     RoomComponent,
     AddroomComponent,
-    InventoryComponent
+    InventoryComponent,
+    ProductComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

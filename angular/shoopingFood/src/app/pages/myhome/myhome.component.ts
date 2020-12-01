@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Router } from "@angular/router";
 import * as jwt from 'jsonwebtoken';
 import $ from 'jquery';
@@ -26,9 +26,8 @@ function LoadHome(house) {
                 <img class="card-img-top" src="../../../assets/s1.png" alt="Room image">
                 <div class="card-body">
                     <h5 class="card-title">${room.ROM_Name}</h5>
-                    <p class="card-text">Coût de la pièce : 20 $</p>
-                    <a href="/room" class="btn btn-primary">Inventaire</a>
-                    <button type="button" class="btn btn-danger" onclick="confirm('êtes vous sûr de vouloir supprimer cette pièce ?'); event.stopPropagation();">Supprimer</button>
+                    <a Onclick="window.location.href = '/room?ROM_Id=${room.ROM_Id}'" class="btn btn-primary">Inventaire</a>
+                    <button type="button" class="btn btn-danger" id="myBtn-${room.ROM_Id}" data-index="${room.ROM_Id}" >Supprimer</button>
                 </div>
             </div>
     `)
@@ -49,15 +48,23 @@ export class MyhomeComponent implements OnInit {
     this.http.get(`http://localhost:8001/Myhome/${user.HSE_Id}`)   
     .subscribe(data => {
       LoadHome(data)
-      
+
+      $(".btn-danger").on("click", function() {
+        if(confirm("êtes vous sûr de vouloir supprimmer cette pièce ?")){
+          http.delete(`http://localhost:8001/room/${this.dataset.index}`)
+          .subscribe(() => this.status = 'Delete successful');   
+          location.reload()
+        }
+        event.stopPropagation();
+      })
     }, error => {
       if(error){
       this.router.navigate(['login'])
     }});
+    
     }
 
   ngOnInit(): void {
-   
-  }
 
+  }
 }
