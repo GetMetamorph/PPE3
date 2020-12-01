@@ -21,8 +21,40 @@ Room.create = (newRoom, result) => {
     });
 };
 
+Room.addproduct = (PDC_Id, STK_Qty, ROM_Id, HSE_Id, result) => {
+    sql.query("INSERT INTO t_stock_stk SET PDC_Id = ?, STK_Qty = ?, ROM_Id = ?, HSE_Id = ?", [PDC_Id, STK_Qty, ROM_Id, HSE_Id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        console.log("created room: ");
+        result(null);
+    });
+};
+
 Room.findById = (roomid, result) => {
     sql.query(`SELECT * FROM t_room_rom WHERE ROM_Id = ${roomid}`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        if (res.length) {
+            console.log("found room: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        // not found Room with the id
+        result({ kind: "not_found" }, null);
+    });
+};
+
+Room.findByName = (roomName, result) => {
+    sql.query(`SELECT * FROM t_room_rom WHERE ROM_Name = '${roomName}'`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

@@ -36,7 +36,18 @@ exports.findAll = (req, res) => {
         else res.send(data);
     });
 };
-
+exports.addproduct = (req, res) => {
+    console.log(req.body)
+    Room.addproduct(req.body.PDC_Id, req.body.STK_Qty, req.body.ROM_Id, req.body.HSE_Id, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving room."
+            });
+        else {
+            res.redirect('http://localhost:4200/inventory');
+        }
+    });
+};
 exports.getAllByHouse = (req, res) => {
     Room.getAllByHouse(req.params.idhouse, (err, data) => {
         if (err)
@@ -63,6 +74,27 @@ exports.findOne = (req, res) => {
         } else res.send(data);
     });
 };
+
+exports.findByName = (req, res, next) => {
+    Room.findByName(req.body.room, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Room with id .`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving Room with id "
+                });
+            }
+        } else {
+            req.body.ROM_Id = data.ROM_Id
+            req.body.HSE_Id = data.HSE_Id
+            next()
+        }
+    });
+};
+
 
 // Update a Room identified by the roomid in the request
 exports.update = (req, res) => {

@@ -47,16 +47,16 @@ function LoadProducts( Stock, HouseRoom) {
   };
   $("#productstab").append(`
   <tr>
-  <td><input type="text" class="form-control col-md-6" id="name_product" name="name_product"></td>
-  <td><input type="text" class="form-control col-md-6" id="desc_product" name="desc_product"></td>
-  <td><input type="text" class="form-control col-md-6" id="link_product" name="link_product"></td>
-  <td><input type="number" class="form-control col-md-6" id="price_product" name="price_product"></td>
-  <td><input type="number" class="form-control col-md-6" id="qty_product" name="qty_product"></td>
+  <td><input type="text" class="form-control col-md-6" id="PDC_Name" name="PDC_Name"></td>
+  <td><input type="text" class="form-control col-md-6" id="PDC_Description" name="PDC_Description"></td>
+  <td><input type="text" class="form-control col-md-6" id="PDC_Link" name="PDC_Link"></td>
+  <td><input type="number" class="form-control col-md-6" id="PDC_Price" name="PDC_Price"></td>
+  <td><input type="number" class="form-control col-md-6" id="STK_Qty" name="STK_Qty"></td>
   <td><select id="roomlist" name="room" class="form-control">
   
 </select></td>
-</tr>
-    
+
+  </tr>
     `)
 
   HouseRoom[0].forEach(room => {

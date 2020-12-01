@@ -2,25 +2,42 @@ const sql = require("./db");
 
 // constructor
 const Product = function(product) {
-    this.name = product.name;
-    this.price = product.price;
-    this.description = product.description;
-    this.amazonlink = product.amazonlink;
+    this.PDC_Name = product.PDC_Name;
+    this.PDC_Price = product.PDC_Price;
+    this.PDC_Description = product.PDC_Description;
+    this.PDC_Link = product.PDC_Link;
 };
 
 Product.create = (newProduct, result) => {
-    sql.query("INSERT INTO product SET ?", newProduct, (err, res) => {
+    sql.query("INSERT INTO t_product_PDC SET ?", newProduct, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
 
-        console.log("created product: ", { id: res.insertId, ...newProduct });
-        result(null, { id: res.insertId, ...newProduct });
+        console.log("created product: ", {...newProduct });
+        result(null, {...newProduct });
     });
 };
+Product.findByName = (productName, result) => {
+    sql.query(`SELECT * FROM t_product_pdc WHERE PDC_Name = '${productName}'`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
 
+        if (res.length) {
+            console.log("found room: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        // not found Room with the id
+        result({ kind: "not_found" }, null);
+    });
+};
 Product.findById = (productid, result) => {
     sql.query(`SELECT * FROM t_product_pdc WHERE PDC_Id = ${productid}`, (err, res) => {
         if (err) {

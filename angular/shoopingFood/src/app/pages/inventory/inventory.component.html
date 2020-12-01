@@ -29,38 +29,27 @@
 <div class="container" id="main-wrapper">
     <div class="content shadow-lg p-3 mb-5 bg-white rounded">
         <h4 class="centered" id="USR_Username">Gestion inventaire</h4>
+        <form action="http://localhost:8001/product" method="post" autocomplete="off" id="form_editP">
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Lien Page</th>
-                    <th scope="col">Prix unité</th>
-                    <th scope="col">Quantité</th>
-                    <th scope="col">Pièce</th>
-                </tr>
-            </thead>
-            <tbody id="productstab">
-                <!--Alimenter la table t_product_pdc des valeurs name, description, link, prix et la table stock de la quantité de l'id de produit, de l'id de la salle et de l'id de la maison-->
-                <!--
-                    INSERT INTO `t_product_pdc` (`PDC_Id`, `PDC_Name`, `PDC_Price`, `PDC_Description`, `PDC_Link`) VALUES (NULL, 'NameValue', 'PriceValue', 'DescriptionValue', 'LinkValue');
-                    INSERT INTO `t_stock_stk` (`PDC_Id`, `STK_Qty`, `ROM_Id`, `HSE_Id`) VALUES ('IdProductValue', 'QuantityValue', 'HouseIdValue', 'RoomIdValue'); 
-                -->
-                <tr>
-                    <td><input type="text" class="form-control col-md-6" id="name_product" name="name_product"></td>
-                    <td><input type="text" class="form-control col-md-6" id="desc_product" name="desc_product"></td>
-                    <td><input type="text" class="form-control col-md-6" id="link_product" name="link_product"></td>
-                    <td><input type="number" class="form-control col-md-6" id="price_product" name="price_product"></td>
-                    <td><input type="number" class="form-control col-md-6" id="qty_product" name="qty_product"></td>
-                    <td><select id="room" name="room" class="form-control">
-                    <!-- Append en affichant les pieces existante -->
-                    <option>Salon</option>
-                    <option>Cuisine</option>
-                </select></td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Lien Page</th>
+                        <th scope="col">Prix unité</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Pièce</th>
+                    </tr>
+                </thead>
+                <tbody id="productstab">
+
+
+                </tbody>
+            </table>
+            <input class="btn btn-primary space1" type="submit" value="Sauvegarder">
+        </form>
+
     </div>
 </div>
 

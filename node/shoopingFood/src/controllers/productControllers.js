@@ -1,8 +1,9 @@
 const Product = require("../models/productModels");
 
 // Create and Save a new Product
-exports.create = (req, res) => {
-    // Validate request
+exports.create = (req, res, next) => {
+    console.log(req.body)
+        // Validate request
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
@@ -11,10 +12,10 @@ exports.create = (req, res) => {
 
     // Create a Product
     const product = new Product({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-        amazonlink: req.body.amazonlink
+        PDC_Name: req.body.PDC_Name,
+        PDC_Price: req.body.PDC_Price,
+        PDC_Description: req.body.PDC_Description,
+        PDC_Link: req.body.PDC_Link
 
     });
 
@@ -24,10 +25,30 @@ exports.create = (req, res) => {
             res.status(500).send({
                 message: err.message || "Some error occurred while creating the Product."
             });
-        else res.send(data);
+        else {
+            req.body.PDC_Name = data.PDC_Name
+            next()
+        }
     });
 };
-
+exports.findByName = (req, res, next) => {
+    Product.findByName(req.body.PDC_Name, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Room with id .`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error retrieving Room with id "
+                });
+            }
+        } else {
+            req.body.PDC_Id = data.PDC_Id
+            next()
+        }
+    });
+};
 // Retrieve all Product from the database.
 exports.findAll = (req, res) => {
     Product.getAll((err, data) => {

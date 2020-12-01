@@ -10,7 +10,7 @@ module.exports = app => {
     app.post("/house/:userid", house.create, user.updateHouse, user.findOneId, login.loginEZ);
     app.post("/houseJoin/:userid", house.findId, user.updateHouse, user.findOneId, login.loginEZ);
     app.post("/room", room.create);
-    app.post("/product", product.create);
+    app.post("/product", product.create, room.findByName, product.findByName, room.addproduct);
     app.post("/user", auth.register, user.create);
 
     // login
